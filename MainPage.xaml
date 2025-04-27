@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:CollectionViewIssue.Model"
+             x:Class="CollectionViewIssue.MainPage"
+             x:DataType="model:MainViewModel">
+    
+    <ContentPage.Resources>
+
+        <DataTemplate x:DataType="model:NamedColor" x:Key="NamedColorTemplate">
+            <Grid ColumnDefinitions="auto, Auto" 
+                  ColumnSpacing="5"
+                  Margin="5,5,5,5">
+                
+                <Ellipse Grid.Column="0" 
+                         Fill="{Binding Color}" 
+                         WidthRequest="30"
+                         HeightRequest="30"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center"
+                         />
+                <Label Grid.Column="1"
+                       Text="{Binding Name}" 
+                       FontSize="20"
+                       />
+            </Grid>
+        </DataTemplate>
+        
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, *"
+          ColumnDefinitions="Auto, Auto, Auto"
+          HorizontalOptions="Center">
+
+        <CollectionView Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        WidthRequest="400"
+                        ItemsSource="{Binding Source, Mode=OneWay}"
+                        SelectedItem="{Binding Source.SelectedItem, Mode=TwoWay}"
+                        ItemTemplate="{StaticResource NamedColorTemplate}"
+                        SelectionMode="Single"
+                        />
+
+        <VerticalStackLayout Grid.Row="0" 
+                             Grid.Column="1"
+                             Spacing="5">
+            <Button Text="--&gt;"
+                    Command="{Binding MoveToCommand}"
+                    FontAttributes="Bold"
+                    />
+            <Button Text="&lt;--"
+                    Command="{Binding MoveFromCommand}"
+                    FontAttributes="Bold"
+                    />
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
+                        WidthRequest="400"
+                        ItemsSource="{Binding Destination, Mode=OneWay}"
+                        SelectedItem="{Binding Destination.SelectedItem, Mode=TwoWay}"
+                        ItemTemplate="{StaticResource NamedColorTemplate}"
+                        SelectionMode="Single"
+                        BackgroundColor="DarkGray"
+                        />
+    </Grid>
+</ContentPage>
