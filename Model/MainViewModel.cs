@@ -74,6 +74,7 @@ internal class MainViewModel
         {
             NamedColor namedColor = Destination.SelectedItem;
             Destination.Remove(namedColor);
+            Destination.SelectedItem = null;
             Source.Add(namedColor);
         }
     }   
@@ -84,6 +85,7 @@ internal class MainViewModel
         {
             NamedColor namedColor = Source.SelectedItem;
             Source.Remove(namedColor);
+            Source.SelectedItem = null;
             Destination.Add(namedColor);
         }
     }
